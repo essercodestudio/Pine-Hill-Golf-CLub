@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Button from '../components/Button';
+import Button from '../components/Button.jsx';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -22,7 +22,7 @@ const LoginScreen = () => {
       <div className="w-full max-w-md p-8 space-y-6 bg-gray-800 rounded-xl shadow-lg">
         <div className="text-center">
             <h2 className="mt-6 text-3xl font-extrabold text-white">
-                Access Pine Hill Score
+                Acesse o Pine Hill Score
             </h2>
         </div>
         <form className="mt-8 space-y-4" onSubmit={handleLogin}>
@@ -33,7 +33,7 @@ const LoginScreen = () => {
               autoComplete="email"
               required
               className="appearance-none relative block w-full px-3 py-3 border border-gray-700 bg-gray-900 text-white placeholder-gray-500 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm rounded-md"
-              placeholder="Email address"
+              placeholder="Endereço de e-mail"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -45,7 +45,7 @@ const LoginScreen = () => {
               autoComplete="current-password"
               required
               className="appearance-none relative block w-full px-3 py-3 border border-gray-700 bg-gray-900 text-white placeholder-gray-500 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm rounded-md"
-              placeholder="Password"
+              placeholder="Senha"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -55,7 +55,7 @@ const LoginScreen = () => {
               Login
             </Button>
             <Button type="button" onClick={handleRegister} variant="secondary" className="w-full">
-              Register
+              Cadastrar
             </Button>
           </div>
         </form>

@@ -58,7 +58,7 @@ const Layout = ({ children }) => {
         {children}
       </main>
       <footer className="bg-gray-800 text-center py-4 text-sm text-gray-500">
-        <p>&copy; 2024 Pine Hill Score. All rights reserved.</p>
+        <p>&copy; 2024 Pine Hill Score. Todos os direitos reservados.</p>
       </footer>
     </div>
   );

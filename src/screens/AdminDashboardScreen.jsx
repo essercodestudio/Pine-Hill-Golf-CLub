@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import ManageCourses from '../components/admin/ManageCourses';
-import ManageTournaments from '../components/admin/ManageTournaments';
-import ManageGroups from '../components/admin/ManageGroups';
+import ManageCourses from '../components/admin/ManageCourses.jsx';
+import ManageTournaments from '../components/admin/ManageTournaments.jsx';
+import ManageGroups from '../components/admin/ManageGroups.jsx';
 
 const AdminDashboardScreen = () => {
   const [activeTab, setActiveTab] = useState('courses');
@@ -22,14 +22,14 @@ const AdminDashboardScreen = () => {
   return (
     <div className="bg-gray-800 p-4 sm:p-6 rounded-lg shadow-xl space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-white">Admin Dashboard</h1>
-        <p className="text-gray-400">Manage your tournament data.</p>
+        <h1 className="text-3xl font-bold text-white">Painel do Administrador</h1>
+        <p className="text-gray-400">Gerencie os dados do seu torneio.</p>
       </div>
       
       <div className="flex flex-wrap gap-2 border-b border-gray-700 pb-3">
-        <TabButton tabName="courses" label="Manage Courses" />
-        <TabButton tabName="tournaments" label="Manage Tournaments" />
-        <TabButton tabName="groups" label="Manage Groups" />
+        <TabButton tabName="courses" label="Gerenciar Campos" />
+        <TabButton tabName="tournaments" label="Gerenciar Torneios" />
+        <TabButton tabName="groups" label="Gerenciar Grupos" />
       </div>
 
       <div>

@@ -15,15 +15,15 @@ const formatToPar = (score) => {
 const LeaderboardScreen = () => {
   return (
     <div className="bg-gray-800 p-4 sm:p-6 rounded-lg shadow-xl">
-      <h1 className="text-3xl font-bold text-white mb-6">Live Leaderboard</h1>
+      <h1 className="text-3xl font-bold text-white mb-6">Leaderboard ao Vivo</h1>
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-700">
           <thead className="bg-gray-700">
             <tr>
               <th className="px-3 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Pos</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Player</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Jogador</th>
               <th className="px-3 py-3 text-center text-xs font-medium text-gray-300 uppercase tracking-wider">To Par</th>
-              <th className="px-3 py-3 text-center text-xs font-medium text-gray-300 uppercase tracking-wider">Thru</th>
+              <th className="px-3 py-3 text-center text-xs font-medium text-gray-300 uppercase tracking-wider">Bur.</th>
               <th className="px-3 py-3 text-center text-xs font-medium text-gray-300 uppercase tracking-wider">Total</th>
             </tr>
           </thead>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Layout from './components/Layout';
-import MainScreen from './screens/MainScreen';
-import LoginScreen from './screens/LoginScreen';
-import AdminDashboardScreen from './screens/AdminDashboardScreen';
-import LeaderboardScreen from './screens/LeaderboardScreen';
-import ScorecardScreen from './screens/ScorecardScreen';
+import Layout from './components/Layout.jsx';
+import MainScreen from './screens/MainScreen.jsx';
+import LoginScreen from './screens/LoginScreen.jsx';
+import AdminDashboardScreen from './screens/AdminDashboardScreen.jsx';
+import LeaderboardScreen from './screens/LeaderboardScreen.jsx';
+import ScorecardScreen from './screens/ScorecardScreen.jsx';
 
 function App() {
   return (

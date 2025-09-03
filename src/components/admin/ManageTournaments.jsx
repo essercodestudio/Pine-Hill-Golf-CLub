@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Button from '../Button';
+import Button from '../Button.jsx';
 
 const ManageTournaments = () => {
-  // Mock data that would typically come from state management or an API
+  // Dados fictícios que normalmente viriam do estado global ou de uma API
   const [courses, setCourses] = useState([
     { id: 'c1', name: 'Pebble Beach' },
     { id: 'c2', name: 'St Andrews Links' }
@@ -32,51 +32,51 @@ const ManageTournaments = () => {
   };
   
   const getCourseName = (courseId) => {
-    return courses.find(c => c.id === courseId)?.name || 'Unknown Course';
+    return courses.find(c => c.id === courseId)?.name || 'Campo Desconhecido';
   }
 
   return (
     <div className="space-y-8">
       <div className="p-6 bg-gray-700/50 rounded-lg">
-        <h3 className="text-xl font-bold text-green-400 mb-4">Create New Tournament</h3>
+        <h3 className="text-xl font-bold text-green-400 mb-4">Criar Novo Torneio</h3>
         <form onSubmit={handleCreateTournament} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
           <div className="lg:col-span-1">
-            <label className="block text-sm font-medium text-gray-300 mb-1">Tournament Name</label>
+            <label className="block text-sm font-medium text-gray-300 mb-1">Nome do Torneio</label>
             <input type="text" value={newTournamentName} onChange={(e) => setNewTournamentName(e.target.value)} className="w-full px-3 py-2 border border-gray-600 bg-gray-900 text-white rounded-md" required />
           </div>
           <div className="lg:col-span-1">
-            <label className="block text-sm font-medium text-gray-300 mb-1">Date</label>
+            <label className="block text-sm font-medium text-gray-300 mb-1">Data</label>
             <input type="date" value={newTournamentDate} onChange={(e) => setNewTournamentDate(e.target.value)} className="w-full px-3 py-2 border border-gray-600 bg-gray-900 text-white rounded-md" required />
           </div>
            <div className="lg:col-span-1">
-            <label className="block text-sm font-medium text-gray-300 mb-1">Course</label>
+            <label className="block text-sm font-medium text-gray-300 mb-1">Campo</label>
             <select value={selectedCourseId} onChange={(e) => setSelectedCourseId(e.target.value)} className="w-full px-3 py-2 border border-gray-600 bg-gray-900 text-white rounded-md" required>
-              <option value="">-- Select --</option>
+              <option value="">-- Selecione --</option>
               {courses.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
           </div>
           <div className="lg:col-span-1">
-            <Button type="submit" className="w-full">Create Tournament</Button>
+            <Button type="submit" className="w-full">Criar Torneio</Button>
           </div>
         </form>
       </div>
 
       <div className="p-6 bg-gray-700/50 rounded-lg">
-        <h3 className="text-xl font-bold text-green-400 mb-4">Existing Tournaments</h3>
+        <h3 className="text-xl font-bold text-green-400 mb-4">Torneios Existentes</h3>
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-600">
             <thead className="bg-gray-700">
               <tr>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase">Name</th>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase">Date</th>
-                <th className="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase">Course</th>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase">Nome</th>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase">Data</th>
+                <th className="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase">Campo</th>
               </tr>
             </thead>
             <tbody className="bg-gray-800 divide-y divide-gray-600">
               {tournaments.map(t => (
                 <tr key={t.id}>
                   <td className="px-4 py-3 font-medium">{t.name}</td>
-                  <td className="px-4 py-3">{new Date(t.date).toLocaleDateString()}</td>
+                  <td className="px-4 py-3">{new Date(t.date).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}</td>
                   <td className="px-4 py-3 text-gray-300">{getCourseName(t.courseId)}</td>
                 </tr>
               ))}

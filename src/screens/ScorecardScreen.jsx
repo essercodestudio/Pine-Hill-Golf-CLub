@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Button from '../components/Button';
+import Button from '../components/Button.jsx';
 
 const mockScorecardData = {
   groupName: 'Aces',
@@ -18,8 +18,22 @@ const ScorecardScreen = () => {
   const [currentHole, setCurrentHole] = useState(1);
   const holeInfo = mockScorecardData.holes.find(h => h.holeNumber === currentHole);
   
-  // In a real app, scores would be complex state. This is simplified.
   const [scores, setScores] = useState({});
+
+  const handleScoreChange = (playerId, change) => {
+    setScores(prevScores => {
+      const playerScores = prevScores[playerId] || {};
+      const currentScore = playerScores[currentHole] || holeInfo.par;
+      const newScore = Math.max(1, currentScore + change);
+      return {
+        ...prevScores,
+        [playerId]: {
+          ...playerScores,
+          [currentHole]: newScore,
+        }
+      };
+    });
+  };
 
   return (
     <div className="bg-gray-800 p-4 rounded-lg shadow-xl flex flex-col h-[calc(100vh-12rem)]">
@@ -33,7 +47,7 @@ const ScorecardScreen = () => {
                 &lt;
             </Button>
             <div className="text-center">
-                <p className="text-gray-400 text-sm">HOLE</p>
+                <p className="text-gray-400 text-sm">BURACO</p>
                 <p className="text-4xl font-bold text-white">{currentHole}</p>
                 <p className="text-gray-400">PAR {holeInfo?.par} &bull; SI {holeInfo?.strokeIndex}</p>
             </div>
@@ -51,9 +65,9 @@ const ScorecardScreen = () => {
                         <p className="text-xs text-gray-400">HCP: {player.hcp}</p>
                     </div>
                     <div className="col-span-2 flex items-center justify-end space-x-2">
-                        <Button size="icon" variant="secondary">-</Button>
+                        <Button size="icon" variant="secondary" onClick={() => handleScoreChange(player.id, -1)}>-</Button>
                         <span className="text-3xl font-bold w-12 text-center text-green-400">{scores[player.id]?.[currentHole] ?? '-'}</span>
-                         <Button size="icon" variant="secondary">+</Button>
+                         <Button size="icon" variant="secondary" onClick={() => handleScoreChange(player.id, 1)}>+</Button>
                     </div>
                 </div>
             ))}
