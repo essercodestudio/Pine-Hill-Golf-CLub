@@ -1,9 +1,20 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthProvider.jsx';
+import GolfPinIcon from './icons/GolfPinIcon.jsx';
+import Button from './Button.jsx';
 
 const Layout = ({ children }) => {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
   const activeLinkStyle = {
-    backgroundColor: '#16a34a', // green-600
+    backgroundColor: '#1F2937', // bg-gray-700
     color: 'white',
   };
 
@@ -12,45 +23,25 @@ const Layout = ({ children }) => {
       <header className="bg-gray-800 shadow-lg sticky top-0 z-10">
         <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <NavLink to="/" className="text-2xl font-bold text-white">
-              Pine Hill Score
+            <NavLink to="/" className="flex items-center">
+              <GolfPinIcon className="h-8 w-8 text-green-400" />
+              <span className="ml-3 text-2xl font-bold text-white">Pine Hill Score</span>
             </NavLink>
-            <div className="flex items-center space-x-2">
-              <NavLink
-                to="/"
-                style={({ isActive }) => (isActive ? activeLinkStyle : undefined)}
-                className="px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-gray-700"
-              >
-                Home
-              </NavLink>
-               <NavLink
-                to="/leaderboard"
-                style={({ isActive }) => (isActive ? activeLinkStyle : undefined)}
-                className="px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-gray-700"
-              >
-                Leaderboard
-              </NavLink>
-              <NavLink
-                to="/scorecard"
-                style={({ isActive }) => (isActive ? activeLinkStyle : undefined)}
-                className="px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-gray-700"
-              >
-                Scorecard
-              </NavLink>
-              <NavLink
-                to="/admin"
-                style={({ isActive }) => (isActive ? activeLinkStyle : undefined)}
-                className="px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-gray-700"
-              >
-                Admin
-              </NavLink>
-              <NavLink
-                to="/login"
-                className="px-3 py-2 rounded-md text-sm font-medium bg-gray-600 hover:bg-gray-700"
-              >
-                Login
-              </NavLink>
-            </div>
+            {user && (
+              <div className="flex items-center space-x-4">
+                 <span className="hidden sm:block text-gray-300">Bem-vindo, {user.fullName.split(' ')[0]}</span>
+                 {user.role === 'admin' && (
+                    <NavLink
+                        to="/admin"
+                        style={({ isActive }) => (isActive ? activeLinkStyle : undefined)}
+                        className="px-3 py-2 rounded-md text-sm font-medium transition-colors text-gray-300 hover:bg-gray-700 hover:text-white"
+                    >
+                        Admin
+                    </NavLink>
+                 )}
+                 <Button onClick={handleLogout} variant="secondary" size="sm">Sair</Button>
+              </div>
+            )}
           </div>
         </nav>
       </header>
