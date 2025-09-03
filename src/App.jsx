@@ -7,38 +7,46 @@ import MainScreen from './screens/MainScreen.jsx';
 import LeaderboardScreen from './screens/LeaderboardScreen.jsx';
 import ScorecardScreen from './screens/ScorecardScreen.jsx';
 import AdminDashboardScreen from './screens/AdminDashboardScreen.jsx';
-import PlayerDetailScreen from './screens/PlayerDetailScreen.jsx';
 
-// Componente que renderiza as rotas corretas com base no estado de autenticação
+// Componente para rotas protegidas
+const ProtectedRoute = ({ children }) => {
+  const { user } = useAuth();
+  if (!user) {
+    // Redireciona para a página de login se o usuário não estiver autenticado
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+};
+
+// Componente para rotas de administrador
+const AdminRoute = ({ children }) => {
+  const { user } = useAuth();
+  if (!user || user.role !== 'admin') {
+     // Redireciona para a home se o usuário não for admin
+    return <Navigate to="/" replace />;
+  }
+  return children;
+};
+
 const AppRoutes = () => {
   const { user } = useAuth();
 
   return (
     <Layout>
       <Routes>
-        {user ? (
-          <>
-            <Route path="/" element={<MainScreen />} />
-            <Route path="/leaderboard/:tournamentId" element={<LeaderboardScreen />} />
-            <Route path="/leaderboard/:tournamentId/player/:playerId" element={<PlayerDetailScreen />} />
-            <Route path="/scorecard/:accessCode" element={<ScorecardScreen />} />
-            {user.role === 'admin' ? (
-                 <Route path="/admin" element={<AdminDashboardScreen />} />
-            ) : (
-                 <Route path="/admin" element={<Navigate to="/" replace />} />
-            )}
-            {/* Se um usuário logado tentar acessar /login, redireciona para a home */}
-            <Route path="/login" element={<Navigate to="/" replace />} />
-            {/* Rota de fallback para usuários logados */}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </>
-        ) : (
-          <>
-            <Route path="/login" element={<LoginScreen />} />
-            {/* Qualquer outra rota é redirecionada para o login se não estiver autenticado */}
-            <Route path="*" element={<Navigate to="/login" replace />} />
-          </>
-        )}
+        {/* Rota Pública */}
+        <Route path="/login" element={user ? <Navigate to="/" replace /> : <LoginScreen />} />
+        
+        {/* Rotas Protegidas */}
+        <Route path="/" element={<ProtectedRoute><MainScreen /></ProtectedRoute>} />
+        <Route path="/leaderboard" element={<ProtectedRoute><LeaderboardScreen /></ProtectedRoute>} />
+        <Route path="/scorecard" element={<ProtectedRoute><ScorecardScreen /></ProtectedRoute>} />
+        
+        {/* Rota de Admin */}
+        <Route path="/admin" element={<AdminRoute><AdminDashboardScreen /></AdminRoute>} />
+
+        {/* Rota de Fallback */}
+        <Route path="*" element={<Navigate to={user ? "/" : "/login"} replace />} />
       </Routes>
     </Layout>
   );

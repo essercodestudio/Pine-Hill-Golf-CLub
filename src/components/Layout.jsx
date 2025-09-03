@@ -13,9 +13,10 @@ const Layout = ({ children }) => {
     navigate('/login');
   };
 
-  const activeLinkStyle = {
-    backgroundColor: '#1F2937', // bg-gray-700
-    color: 'white',
+  const getActiveStyle = ({ isActive }) => {
+    return isActive
+      ? { backgroundColor: '#1F2937', color: 'white' } // bg-gray-700
+      : {};
   };
 
   return (
@@ -33,7 +34,7 @@ const Layout = ({ children }) => {
                  {user.role === 'admin' && (
                     <NavLink
                         to="/admin"
-                        style={({ isActive }) => (isActive ? activeLinkStyle : undefined)}
+                        style={getActiveStyle}
                         className="px-3 py-2 rounded-md text-sm font-medium transition-colors text-gray-300 hover:bg-gray-700 hover:text-white"
                     >
                         Admin
